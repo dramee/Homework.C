@@ -83,3 +83,4 @@ cmake-build-debug/.cmake/api/v1/query/cache-v2
 .idea/misc.xml
 .idea/Homework.C.iml
 .idea/.name
+*.json

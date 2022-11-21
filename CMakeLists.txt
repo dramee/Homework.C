@@ -3,4 +3,4 @@ project(Homework_C C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(Homework_C main.c)
+add_executable(Homework_C main.c funcstr.c lib.h)

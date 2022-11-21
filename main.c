@@ -1,7 +1,9 @@
-#include <stdio.h>
+#include "lib.h"
 
 int main() {
-    printf("Hello, World!\n");
-    printf("Finally\n");
+    string str = strInit();
+    printStr(str);
+    stringArr strArr = strArrInit();
+    printStrArr(strArr);
     return 0;
 }
