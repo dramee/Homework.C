@@ -24,5 +24,13 @@ typedef struct {
 
 string strInit();
 stringArr strArrInit();
+void strInfo(string str);
+void strArrInfo(stringArr strArr);
+void checkFileIsExist(FILE* file);
+void nullCheck(void* ptr);
+void addTail(string* str, byte ch);
+void addTailArr(stringArr* strArr, string str);
+void freeStrArr(stringArr strArr);
 void printStr(string str);
 void printStrArr(stringArr strArr);
+void argCheck(int argc);

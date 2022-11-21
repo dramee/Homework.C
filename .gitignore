@@ -84,3 +84,4 @@ cmake-build-debug/.cmake/api/v1/query/cache-v2
 .idea/Homework.C.iml
 .idea/.name
 *.json
+test.txt
