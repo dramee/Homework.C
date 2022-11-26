@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <math.h>
 
 typedef char byte;
 
@@ -34,3 +35,8 @@ void freeStrArr(stringArr strArr);
 void printStr(string str);
 void printStrArr(stringArr strArr);
 void argCheck(int argc);
+string temperature(string str);
+int isPalindrome(string str);
+string stripBySpace(string str);
+stringArr split(string str);
+int isSymbolOfWord(byte ch);
