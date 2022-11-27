@@ -73,16 +73,22 @@ void addTailArr(stringArr* strArr, string str){
     strArr->len++;
 }
 
+
+void freeStr(string str) {
+    free(str.start);
+}
+
+
 void freeStrArr(stringArr strArr){
     for (size_t i = 0; i < strArr.len; i++){
-        free(strArr.start[i].start);
+        freeStr(strArr.start[i]);
     }
     free(strArr.start);
 }
 
 
 void printStr(string str){
-    for (size_t i = 0; i < str.len; i++){
+    for (size_t i = 0; i < str.len - 1; i++){
         printf("%c", str.start[i]);
     }
 }
@@ -132,17 +138,23 @@ int isPalindrome(string str) {
 }
 
 
-string stripBySpace(string str) {
+void stripBySpace(string* str) {
     string newStr = strInit();
-    if (str.start[0] != ' ') {
-        addTail(&newStr, str.start[0]);
+    if (str->start[0] != ' ') {
+        addTail(&newStr, str->start[0]);
     }
-    for (size_t i = 1; i < str.len; i++) {
-        if (!((str.start[i] == ' ') && (str.start[i-1] == ' '))) {
-            addTail(&newStr, str.start[i]);
+    for (size_t i = 1; i < str->len; i++) {
+        if (!((str->start[i] == ' ') && (str->start[i-1] == ' '))) {
+            addTail(&newStr, str->start[i]);
         }
     }
-    return newStr;
+    for (size_t i = 0; i < newStr.len; i++) {
+        str->start[i] = newStr.start[i];
+    }
+    str->start = (byte*) realloc(str->start, sizeof(byte) * newStr.cap);
+    str->len = newStr.len;
+    str->cap = newStr.cap;
+    free(newStr.start);
 }
 
 
@@ -164,4 +176,46 @@ stringArr split(string str) {
     }
     addTailArr(&newStrArr, word);
     return newStrArr;
+}
+
+
+int isBracketRemove(string* str, size_t open, size_t close) {
+    int flag = 0;
+    for (size_t i = open + 1; i < close; i++) {
+        if (isSymbolOfWord(str->start[i])) {
+            if (flag == 2) {
+                flag = 0;
+                break;
+            } else {
+                flag = 1;
+            }
+        } else {
+            if (flag) {
+                flag = 2;
+            }
+        }
+    }
+    return flag;
+}
+
+void removeBrackets(string* str) {
+    size_t open = -1;
+    size_t close = -1;
+    for (size_t i = 0; i < str->len; i++) {
+        if (str->start[i] == '(') {
+            open = i;
+        }
+        if ((str->start[i] == ')') && (open != -1)) {
+            close = i;
+            break;
+        }
+    }
+    if ((open != -1) && (close != -1)) {
+        if (isBracketRemove(str, open, close)) {
+            str->start[open] = ' ';
+            str->start[close] = ' ';
+            stripBySpace(str);
+            removeBrackets(str);
+        }
+    }
 }
